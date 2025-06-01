@@ -2,6 +2,7 @@ package com.example.fitnessapp.ui.theme
 
 import android.R.id.primary
 import android.app.Activity
+import android.graphics.Color.toArgb
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
@@ -20,6 +21,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.dimensions.provideResponsiveDimensions
+import com.example.fitnessapp.ui.theme.typography.provideResponsiveTypography
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -46,6 +51,9 @@ fun FitnessAppTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val localView = LocalView.current
+    val systemUiController = rememberSystemUiController()
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -58,14 +66,16 @@ fun FitnessAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.primaryContainer.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalDimensions provides provideResponsiveDimensions()) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = provideResponsiveTypography(),
+            content = content
+        )
+    }
 }
