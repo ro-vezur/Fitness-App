@@ -3,7 +3,9 @@ package com.example.fitnessapp.presentation.navHost
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -14,24 +16,58 @@ import androidx.navigation.compose.rememberNavController
 import com.example.fitnessapp.presentation.auth.authNavGraph
 import com.example.fitnessapp.ui.theme.FitnessAppTheme
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.navigation.compose.composable
+import com.example.fitnessapp.presentation.components.bottomNavigationBar.BottomNavigationBar
+import com.example.fitnessapp.presentation.mainScreens.mainScreensNavGraph
+import kotlinx.coroutines.delay
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
 @Composable
 fun NavHostScreen(
 
 ) {
     val navHostController = rememberNavController()
+    var showBottomNavigationBar by rememberSaveable { mutableStateOf(false) }
 
-    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    LaunchedEffect(Unit) {
+        delay(3000)
 
-    NavHost(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.background),
-        navController = navHostController,
-        startDestination = ScreenRoutes.AuthNavGraph
-    ) {
-        authNavGraph(
-            navController = navHostController
-        )
+        navHostController.navigate(ScreenRoutes.MainScreensNavGraph)
+    }
+
+    Scaffold(
+        bottomBar = {
+            if(showBottomNavigationBar) {
+                BottomNavigationBar(
+                    navController = navHostController
+                )
+            }
+        }
+    ) { innerPadding ->
+        NavHost(
+            modifier = Modifier
+                .padding(innerPadding)
+                .background(MaterialTheme.colorScheme.background),
+            navController = navHostController,
+            startDestination = ScreenRoutes.SplashScreenRoute
+        ) {
+            composable<ScreenRoutes.SplashScreenRoute> {
+                showBottomNavigationBar = false
+            }
+
+            authNavGraph(
+                navController = navHostController,
+                showBottomNavigationBar = { showBottomNavigationBar = it }
+            )
+
+            mainScreensNavGraph(
+                navController = navHostController,
+                showBottomNavigationBar = { showBottomNavigationBar = it }
+            )
+        }
     }
 }
 
