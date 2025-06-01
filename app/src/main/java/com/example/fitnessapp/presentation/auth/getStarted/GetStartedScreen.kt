@@ -24,19 +24,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.toRoute
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
-import com.example.fitnessapp.ui.theme.BASE_BUTTON_HEIGHT
-import com.example.fitnessapp.ui.theme.BASE_BUTTON_SHAPE
+import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
 
 @Composable
 fun GetStartedScreen(
     navController: NavController,
 ) {
+    val localDimensions = LocalDimensions.current
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(Modifier.fillMaxHeight(0.15f))
+        Spacer(Modifier.weight(1f))
 
         Text(
             text = "Let get started!",
@@ -45,7 +46,7 @@ fun GetStartedScreen(
 
         Text(
             modifier = Modifier
-                .padding(top = 16.dp),
+                .padding(top = localDimensions.spacingLarge),
             text = "This fitness app for you",
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.secondary
@@ -56,8 +57,8 @@ fun GetStartedScreen(
         Button(
             modifier = Modifier
                 .fillMaxWidth(0.85f)
-                .height(BASE_BUTTON_HEIGHT),
-            shape = BASE_BUTTON_SHAPE,
+                .height(localDimensions.buttonHeight),
+            shape = localDimensions.cardShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary
             ),
@@ -73,13 +74,12 @@ fun GetStartedScreen(
             )
         }
 
-        Spacer(Modifier.weight(0.25f))
-
         Button(
             modifier = Modifier
+                .padding(top = localDimensions.spacingLarge)
                 .fillMaxWidth(0.85f)
-                .height(BASE_BUTTON_HEIGHT),
-            shape = BASE_BUTTON_SHAPE,
+                .height(localDimensions.buttonHeight),
+            shape = localDimensions.cardShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary

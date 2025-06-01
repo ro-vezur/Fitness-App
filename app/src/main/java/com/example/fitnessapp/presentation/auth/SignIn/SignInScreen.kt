@@ -12,22 +12,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,18 +29,15 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.fitnessapp.extensions.modifier.MultipleClickCutter
-import com.example.fitnessapp.extensions.modifier.get
-import com.example.fitnessapp.presentation.auth.AuthUiComponents.Validator.BasicValidatingInputTextField
-import com.example.fitnessapp.presentation.auth.AuthUiComponents.Validator.PasswordTextField
-import com.example.fitnessapp.presentation.auth.AuthUiComponents.Validator.ValidationResult
+import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.BasicValidatingInputTextField
+import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.PasswordTextField
+import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.ValidationResult
 import com.example.fitnessapp.presentation.auth.AuthResult
 import com.example.fitnessapp.presentation.components.LoadingScreen
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
-import com.example.fitnessapp.ui.theme.BASE_BUTTON_HEIGHT
-import com.example.fitnessapp.ui.theme.BASE_BUTTON_SHAPE
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.blur
+import com.example.fitnessapp.presentation.components.buttons.TurnBackButton
+import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
 
 @Composable
 fun SignInScreen(
@@ -56,6 +45,7 @@ fun SignInScreen(
     uiState: SignInUiState,
     executeEvent: (SignInEvents) -> Unit,
 ) {
+    val localDimensions = LocalDimensions.current
     val focusManager = LocalFocusManager.current
 
     BackHandler {
@@ -69,27 +59,19 @@ fun SignInScreen(
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.Center
     ) {
         Box(
             Modifier
                 .fillMaxSize()
                 .let { if (uiState.signInResult == AuthResult.Loading) it.blur(4.dp) else it }
         ) {
-            IconButton(
+            TurnBackButton(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(top = 35.dp, start = 20.dp),
-                colors = IconButtonDefaults.iconButtonColors(),
-                onClick = { MultipleClickCutter.get().executeEvent { navController.navigateUp() } }
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .size(34.dp),
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = null,
-                )
-            }
+                    .align(Alignment.TopStart),
+                onClick = {
+                    navController.navigateUp()
+                }
+            )
 
             Column(
                 modifier = Modifier
@@ -116,23 +98,23 @@ fun SignInScreen(
                     validationResult = ValidationResult.Unknown,
                     header = "Name",
                     placeholderText = "Enter Name",
-                    elevation = 2.dp
+                    elevation = localDimensions.elevation
                 )
 
                 PasswordTextField(
                     modifier = Modifier
-                        .padding(top = 25.dp),
+                        .padding(top = localDimensions.spacingExtraLarge),
                     text =  uiState.passwordInput,
                     updateInput = { input ->
                         executeEvent(SignInEvents.OnPasswordFieldInput(input))
                     },
                     validationResult = ValidationResult.Unknown,
-                    elevation = 2.dp
+                    elevation = localDimensions.elevation
                 )
 
                 ForgotPasswordText(
                     onClick = {
-                        Log.d("TAG", "click")
+                        navController.navigate(ScreenRoutes.AuthNavGraph.ForgotPasswordNavHostRoute)
                     }
                 )
 
@@ -145,7 +127,7 @@ fun SignInScreen(
 
                 Text(
                     modifier = Modifier
-                        .padding(top = 25.dp),
+                        .padding(top = localDimensions.spacingExtraLarge),
                     text = buildAnnotatedString {
                         append("Don't have account? ")
                         addStyle(
@@ -209,15 +191,15 @@ private fun SignUpLoadingScreen(
 private fun SignInButton(
     onClick: () -> Unit
 ) {
-    val focusManager = LocalFocusManager.current
+    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         modifier = Modifier
             .padding(top = 45.dp)
             .fillMaxWidth()
-            .height(BASE_BUTTON_HEIGHT),
-        shape = BASE_BUTTON_SHAPE,
+            .height(localDimensions.buttonHeight),
+        shape = localDimensions.cardShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),
@@ -235,9 +217,11 @@ private fun SignInButton(
 private fun ForgotPasswordText(
     onClick: () -> Unit = {}
 ) {
+    val localDimensions = LocalDimensions.current
+
     Box(
         modifier = Modifier
-            .padding(top = 8.dp)
+            .padding(top = localDimensions.spacingSmall)
             .fillMaxWidth(),
         contentAlignment = Alignment.CenterEnd
     ) {
@@ -245,12 +229,12 @@ private fun ForgotPasswordText(
 
         Text(
             modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
+                .clip(localDimensions.cardShape)
                 .clickable(
                     indication = null,
                     interactionSource = interactionSource
                 ) { onClick() }
-                .padding(6.dp),
+                .padding(localDimensions.spacingSmall),
             text = "Forgot password?",
             style = MaterialTheme.typography.bodyLarge
         )

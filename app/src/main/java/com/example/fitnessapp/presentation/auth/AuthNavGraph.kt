@@ -12,12 +12,18 @@ import com.example.fitnessapp.presentation.auth.SignIn.SignInScreen
 import com.example.fitnessapp.presentation.auth.SignIn.SignInViewModel
 import com.example.fitnessapp.presentation.auth.SignUp.SignUpScreen
 import com.example.fitnessapp.presentation.auth.SignUp.SignUpViewModel
+import com.example.fitnessapp.presentation.auth.forgotPassword.ForgotPasswordNavHost
 import com.example.fitnessapp.presentation.auth.getStarted.GetStartedScreen
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
 
 
-fun NavGraphBuilder.authNavGraph(navController: NavController) {
+fun NavGraphBuilder.authNavGraph(
+    navController: NavController,
+    showBottomNavigationBar: (Boolean) -> Unit,
+) {
     navigation<ScreenRoutes.AuthNavGraph>(startDestination = ScreenRoutes.AuthNavGraph.GetStartedRoute) {
+        showBottomNavigationBar(false)
+
         composable<ScreenRoutes.AuthNavGraph.GetStartedRoute> {
             GetStartedScreen(
                 navController = navController
@@ -43,6 +49,12 @@ fun NavGraphBuilder.authNavGraph(navController: NavController) {
                 navController = navController,
                 uiState = uiState ,
                 executeEvent = signInViewModel::executeEvent
+            )
+        }
+
+        composable<ScreenRoutes.AuthNavGraph.ForgotPasswordNavHostRoute> {
+            ForgotPasswordNavHost(
+                authNavController = navController
             )
         }
     }
