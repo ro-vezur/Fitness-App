@@ -7,7 +7,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
-composeBom = "2025.05.00"
+composeBom = "2025.05.01"
 navigation = "2.9.0"
 retrofit = "2.10.0"
 coil = "3.1.0"
@@ -16,6 +16,7 @@ serializationPlugin = "1.9.23"
 ksp = "2.0.21-1.0.26"
 hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
+systemUiController = "0.27.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +43,7 @@ hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose",version.ref = "hiltNavigationCompose"}
 androidx-material-icons-extended = {  group = "androidx.compose.material", name = "material-icons-extended"}
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "systemUiController" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
