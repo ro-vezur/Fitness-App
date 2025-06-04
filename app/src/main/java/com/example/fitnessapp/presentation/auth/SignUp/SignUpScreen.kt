@@ -30,7 +30,7 @@ import com.example.fitnessapp.presentation.auth.AuthResult
 import com.example.fitnessapp.presentation.components.LoadingScreen
 import com.example.fitnessapp.presentation.components.buttons.TurnBackButton
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @Composable
 fun SignUpScreen(
@@ -38,7 +38,6 @@ fun SignUpScreen(
     uiState: SignUpUiState,
     executeEvent: (SignUpEvents) -> Unit,
 ) {
-    val localDimensions = LocalDimensions.current
     val focusManager = LocalFocusManager.current
 
     BackHandler {
@@ -67,8 +66,8 @@ fun SignUpScreen(
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .fillMaxHeight()
-                    .fillMaxWidth(0.85f),
+                    .padding(horizontal = MaterialTheme.responsiveLayout.screenWidthPadding)
+                    .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier.fillMaxHeight(0.12f))
@@ -78,9 +77,9 @@ fun SignUpScreen(
                     style = MaterialTheme.typography.headlineLarge
                 )
 
+                Spacer(Modifier.fillMaxHeight(0.1f))
+
                 BasicValidatingInputTextField(
-                    modifier = Modifier
-                        .padding(top = 75.dp),
                     text =  uiState.nameInput ,
                     updateInput = { input ->
                         executeEvent(SignUpEvents.OnNameFieldInput(input))
@@ -88,26 +87,28 @@ fun SignUpScreen(
                     validationResult = ValidationResult.Unknown,
                     header = "Name",
                     placeholderText = "Enter Name",
-                    elevation = localDimensions.elevation
+                    elevation = MaterialTheme.responsiveLayout.elevation
                 )
 
                 PasswordTextField(
                     modifier = Modifier
-                        .padding(top = localDimensions.spacingExtraLarge),
+                        .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge),
                     text =  uiState.passwordInput ,
                     updateInput = { input ->
                         executeEvent(SignUpEvents.OnPasswordFieldInput(input))
                     },
                     validationResult = ValidationResult.Unknown,
-                    elevation = localDimensions.elevation
+                    elevation = MaterialTheme.responsiveLayout.elevation
                 )
+
+                Spacer(modifier = Modifier.weight(0.2f))
 
                 Button(
                     modifier = Modifier
-                        .padding(top = 45.dp)
+                        .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge)
                         .fillMaxWidth()
-                        .height(localDimensions.buttonHeight),
-                    shape = localDimensions.cardShape,
+                        .height(MaterialTheme.responsiveLayout.buttonHeight),
+                    shape = MaterialTheme.responsiveLayout.cardShape,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     ),
@@ -124,9 +125,9 @@ fun SignUpScreen(
 
                 Text(
                     modifier = Modifier
-                        .padding(top = localDimensions.spacingExtraLarge),
+                        .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge),
                     text = buildAnnotatedString {
-                        append("Don't have account? ")
+                        append("Already have account? ")
                         addStyle(
                             style = SpanStyle(
                                 color = MaterialTheme.colorScheme.secondary,
@@ -163,15 +164,13 @@ fun SignUpScreen(
                         )
                     }
                 )
+
+                Spacer(Modifier.weight(1f))
             }
         }
 
         if(uiState.signUpResult == AuthResult.Loading) {
-            LoadingScreen(
-                modifier = Modifier
-                    .fillMaxWidth(0.85f),
-                loadingText = "Sign Up"
-            )
+            LoadingScreen(loadingText = "Sign Up")
         }
     }
 }

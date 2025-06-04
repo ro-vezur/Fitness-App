@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +37,6 @@ fun BasicValidatingInputTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     elevation: Dp = 0.dp,
 ) {
-    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Column(
@@ -51,18 +50,18 @@ fun BasicValidatingInputTextField(
 
         BasicTextField(
             modifier = Modifier
-                .padding(top = localDimensions.spacingLarge, start = localDimensions.spacingSmall)
-                .height(localDimensions.buttonHeight)
+                .padding(top = MaterialTheme.responsiveLayout.spacingLarge, start = MaterialTheme.responsiveLayout.spacingSmall)
+                .height(MaterialTheme.responsiveLayout.buttonHeight)
                 .fillMaxWidth()
-                .shadow(elevation, localDimensions.cardShape)
+                .shadow(elevation, MaterialTheme.responsiveLayout.cardShape)
                 .border(
-                    width = localDimensions.outlineWidthSmall,
+                    width = MaterialTheme.responsiveLayout.outlineWidthSmall,
                     color = when {
                         validationResult is ValidationResult.Error -> MaterialTheme.colorScheme.error
                         text.isNotEmpty() -> MaterialTheme.colorScheme.primary
                         else -> Color.Transparent
                     },
-                    shape = localDimensions.cardShape
+                    shape = MaterialTheme.responsiveLayout.cardShape
                 ),
             value = text,
             onValueChange = updateInput,
@@ -76,7 +75,7 @@ fun BasicValidatingInputTextField(
             TextFieldDefaults.DecorationBox(
                 innerTextField = innerTextField,
                 interactionSource = interactionSource,
-                shape = localDimensions.cardShape,
+                shape = MaterialTheme.responsiveLayout.cardShape,
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = MaterialTheme.colorScheme.surface,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface,
@@ -95,7 +94,7 @@ fun BasicValidatingInputTextField(
                 enabled = true,
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
-                contentPadding = PaddingValues(horizontal = localDimensions.spacingMedium),
+                contentPadding = PaddingValues(horizontal = MaterialTheme.responsiveLayout.spacingMedium),
                 placeholder = {
                     Text(
                         text = placeholderText,

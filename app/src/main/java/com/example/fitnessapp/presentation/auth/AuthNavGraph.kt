@@ -1,7 +1,6 @@
 package com.example.fitnessapp.presentation.auth
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -12,7 +11,7 @@ import com.example.fitnessapp.presentation.auth.SignIn.SignInScreen
 import com.example.fitnessapp.presentation.auth.SignIn.SignInViewModel
 import com.example.fitnessapp.presentation.auth.SignUp.SignUpScreen
 import com.example.fitnessapp.presentation.auth.SignUp.SignUpViewModel
-import com.example.fitnessapp.presentation.auth.forgotPassword.ForgotPasswordNavHost
+import com.example.fitnessapp.presentation.auth.forgotPassword.ForgotPasswordScreens
 import com.example.fitnessapp.presentation.auth.getStarted.GetStartedScreen
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
 
@@ -53,7 +52,7 @@ fun NavGraphBuilder.authNavGraph(
         }
 
         composable<ScreenRoutes.AuthNavGraph.ForgotPasswordNavHostRoute> {
-            ForgotPasswordNavHost(
+            ForgotPasswordScreens(
                 authNavController = navController
             )
         }

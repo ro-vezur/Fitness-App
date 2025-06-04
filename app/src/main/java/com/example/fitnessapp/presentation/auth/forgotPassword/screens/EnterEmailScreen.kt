@@ -3,7 +3,7 @@ package com.example.fitnessapp.presentation.auth.forgotPassword.screens
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,11 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.BasicValidatingInputTextField
 import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.ValidationResult
-import com.example.fitnessapp.ui.theme.BASE_SCREEN_WIDTH_RATIO
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @Composable
 fun EnterEmailScreen(
@@ -30,12 +28,11 @@ fun EnterEmailScreen(
     onEmailInputChange: (String) -> Unit,
     sendCode: () -> Unit,
 ) {
-    val localDimensions = LocalDimensions.current
 
     Column(
         modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(BASE_SCREEN_WIDTH_RATIO),
+            .padding(horizontal = MaterialTheme.responsiveLayout.screenWidthPadding)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.weight(1f))
@@ -47,7 +44,7 @@ fun EnterEmailScreen(
 
         Text(
             modifier = Modifier
-                .padding(top = localDimensions.spacingLarge),
+                .padding(top = MaterialTheme.responsiveLayout.spacingLarge),
             text = "Enter your registered email to receive the verification code to reset your password",
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.secondary,
@@ -68,29 +65,28 @@ fun EnterEmailScreen(
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email
             ),
-            elevation = localDimensions.elevation
+            elevation = MaterialTheme.responsiveLayout.elevation
         )
 
         Spacer(Modifier.weight(0.5f))
 
-        ResetPasswordButton(
+        SendCodeButton(
             onClick = { sendCode() }
         )
     }
 }
 
 @Composable
-private fun ResetPasswordButton(
+private fun SendCodeButton(
     onClick: () -> Unit
 ) {
-    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .height(localDimensions.buttonHeight),
-        shape = localDimensions.cardShape,
+            .height(MaterialTheme.responsiveLayout.buttonHeight),
+        shape = MaterialTheme.responsiveLayout.cardShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),

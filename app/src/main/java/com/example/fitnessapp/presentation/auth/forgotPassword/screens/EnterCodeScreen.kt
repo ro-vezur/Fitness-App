@@ -19,11 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.CodeTextField
 import com.example.fitnessapp.ui.theme.BASE_SCREEN_WIDTH_RATIO
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @Composable
 fun EnterCodeScreen(
@@ -32,7 +31,6 @@ fun EnterCodeScreen(
     onCodeInputChange: (String) -> Unit,
     verifyCode: () -> Unit,
 ) {
-    val localDimensions = LocalDimensions.current
 
     Column(
         modifier = Modifier
@@ -50,7 +48,7 @@ fun EnterCodeScreen(
 
         Text(
             modifier = Modifier
-                .padding(top = localDimensions.spacingLarge),
+                .padding(top = MaterialTheme.responsiveLayout.spacingLarge),
             text = buildAnnotatedString {
                 append("We've sent a code to your email,")
                 addStyle(
@@ -100,14 +98,13 @@ fun EnterCodeScreen(
 private fun VerifyCodeButton(
     onClick: () -> Unit
 ) {
-    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .height(localDimensions.buttonHeight),
-        shape = localDimensions.cardShape,
+            .height(MaterialTheme.responsiveLayout.buttonHeight),
+        shape = MaterialTheme.responsiveLayout.cardShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),

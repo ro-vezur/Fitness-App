@@ -15,25 +15,20 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.fitnessapp.presentation.components.buttons.TurnBackButton
-import com.example.fitnessapp.presentation.navHost.ScreenRoutes
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.fitnessapp.presentation.auth.forgotPassword.screens.EnterCodeScreen
 import com.example.fitnessapp.presentation.auth.forgotPassword.screens.EnterEmailScreen
 import com.example.fitnessapp.presentation.auth.forgotPassword.screens.ResetPasswordScreen
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.presentation.components.buttons.TurnBackButton
+import com.example.fitnessapp.presentation.navHost.ScreenRoutes
+import com.example.fitnessapp.ui.theme.responsiveLayout
 import kotlinx.coroutines.launch
 
 private val pagerTween: AnimationSpec<Float> = tween(
@@ -43,11 +38,10 @@ private val pagerTween: AnimationSpec<Float> = tween(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ForgotPasswordNavHost(
+fun ForgotPasswordScreens(
     authNavController: NavController,
     forgotPasswordViewModel: ForgotPasswordViewModel = hiltViewModel()
 ) {
-    val localDimensions = LocalDimensions.current
 
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState { 3 }
@@ -144,7 +138,7 @@ fun ForgotPasswordNavHost(
 
             Text(
                 modifier = Modifier
-                    .padding(top = localDimensions.spacingExtraLarge),
+                    .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge),
                 text = buildAnnotatedString {
                     append("Remember the password? ")
                     addStyle(

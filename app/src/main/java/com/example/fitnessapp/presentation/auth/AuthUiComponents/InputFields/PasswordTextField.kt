@@ -1,6 +1,5 @@
 package com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields
 
-import android.R.attr.text
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -36,7 +35,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +48,6 @@ fun PasswordTextField(
     placeholderText: String = "Enter Password",
     elevation: Dp = 0.dp,
 ) {
-    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
     var isVisible by rememberSaveable {
         mutableStateOf(true)
@@ -66,18 +64,18 @@ fun PasswordTextField(
 
         BasicTextField(
             modifier = Modifier
-                .padding(top = localDimensions.spacingLarge, start = localDimensions.spacingSmall)
-                .height(localDimensions.buttonHeight)
+                .padding(top = MaterialTheme.responsiveLayout.spacingLarge, start = MaterialTheme.responsiveLayout.spacingSmall)
+                .height(MaterialTheme.responsiveLayout.buttonHeight)
                 .fillMaxWidth()
-                .shadow(elevation, localDimensions.cardShape)
+                .shadow(elevation, MaterialTheme.responsiveLayout.cardShape)
                 .border(
-                    width = localDimensions.outlineWidthSmall,
+                    width = MaterialTheme.responsiveLayout.outlineWidthSmall,
                     color = when {
                         validationResult is ValidationResult.Error -> MaterialTheme.colorScheme.error
                         text.isNotEmpty() -> MaterialTheme.colorScheme.primary
                         else -> Color.Transparent
                     },
-                    shape = localDimensions.cardShape
+                    shape = MaterialTheme.responsiveLayout.cardShape
                 ),
             value = text,
             onValueChange = updateInput,
@@ -93,7 +91,7 @@ fun PasswordTextField(
         ) { innerTextField ->
             TextFieldDefaults.DecorationBox(
                 innerTextField = innerTextField,
-                shape = localDimensions.cardShape,
+                shape = MaterialTheme.responsiveLayout.cardShape,
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = MaterialTheme.colorScheme.surface,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface,
@@ -113,7 +111,7 @@ fun PasswordTextField(
                 singleLine = true,
                 visualTransformation = if(isVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 interactionSource = interactionSource,
-                contentPadding = PaddingValues(horizontal = localDimensions.spacingMedium),
+                contentPadding = PaddingValues(horizontal = MaterialTheme.responsiveLayout.spacingMedium),
                 placeholder = {
                     Text(
                         text = placeholderText,
@@ -123,14 +121,14 @@ fun PasswordTextField(
                 trailingIcon = {
                     IconButton(
                         modifier = Modifier
-                            .padding(end = localDimensions.spacingSmall),
+                            .padding(end = MaterialTheme.responsiveLayout.spacingSmall),
                         onClick = {
                             isVisible = !isVisible
                         }
                     ) {
                         Icon(
                             modifier = Modifier
-                                .size(localDimensions.iconMedium),
+                                .size(MaterialTheme.responsiveLayout.iconMedium),
                             imageVector = if(isVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.secondary
