@@ -22,16 +22,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.fitnessapp.presentation.navHost.ScreenRoutes
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @Composable
 fun BottomNavigationBar(
     navController: NavController
 ) {
-    val localDimensions = LocalDimensions.current
 
     val interactionSource = remember { MutableInteractionSource() }
     var currentNavigationBarRoute: ScreenRoutes by remember { mutableStateOf(ScreenRoutes.MainScreensNavGraph.startRoute) }
@@ -55,7 +55,7 @@ fun BottomNavigationBar(
 
     Row(
         modifier = Modifier
-            .height(localDimensions.bottomNavigationBarHeight)
+            .height(MaterialTheme.responsiveLayout.bottomNavigationBarHeight)
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.primary),
         verticalAlignment = Alignment.CenterVertically,
@@ -66,7 +66,6 @@ fun BottomNavigationBar(
 
             Column(
                 modifier = Modifier
-                    .padding(horizontal = localDimensions.spacingSmall)
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null
@@ -77,11 +76,12 @@ fun BottomNavigationBar(
                         }
                     },
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(localDimensions.spacingSmall)
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.responsiveLayout.spacingSmall)
             ) {
                 Icon(
                     modifier = Modifier
-                        .size(localDimensions.iconLarge),
+                        .padding(horizontal = MaterialTheme.responsiveLayout.spacingMedium)
+                        .size(MaterialTheme.responsiveLayout.iconLarge),
                     imageVector = if(isSelected) item.selectedIcon else item.unselectedIcon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.background
