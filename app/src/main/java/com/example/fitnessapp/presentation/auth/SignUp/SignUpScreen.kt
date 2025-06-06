@@ -57,6 +57,7 @@ fun SignUpScreen(
         ) {
             TurnBackButton(
                 modifier = Modifier
+                    .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge, start = MaterialTheme.responsiveLayout.spacingLarge)
                     .align(Alignment.TopStart),
                 onClick = {
                     navController.navigateUp()

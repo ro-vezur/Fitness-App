@@ -61,6 +61,7 @@ fun SignInScreen(
         ) {
             TurnBackButton(
                 modifier = Modifier
+                    .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge, start = MaterialTheme.responsiveLayout.spacingLarge)
                     .align(Alignment.TopStart),
                 onClick = {
                     navController.navigateUp()
@@ -115,25 +116,12 @@ fun SignInScreen(
 
                 Spacer(modifier = Modifier.weight(0.25f))
 
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(MaterialTheme.responsiveLayout.buttonHeight),
-                    shape = MaterialTheme.responsiveLayout.cardShape,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ),
-                    interactionSource = interactionSource,
+                SignInButton(
                     onClick = {
                         executeEvent(SignInEvents.SignIn)
                         focusManager.clearFocus()
                     }
-                ) {
-                    Text(
-                        text = "Sign In",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+                )
 
                 Text(
                     modifier = Modifier
@@ -216,6 +204,30 @@ private fun ForgotPasswordText(
                 ) { onClick() }
                 .padding(MaterialTheme.responsiveLayout.spacingSmall),
             text = "Forgot password?",
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
+@Composable
+fun SignInButton(
+    onClick: () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(MaterialTheme.responsiveLayout.buttonHeight),
+        shape = MaterialTheme.responsiveLayout.cardShape,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary
+        ),
+        interactionSource = interactionSource,
+        onClick = { onClick() }
+    ) {
+        Text(
+            text = "Sign In",
             style = MaterialTheme.typography.bodyLarge
         )
     }

@@ -24,7 +24,7 @@ fun GetStartedScreen(
 
     Column(
         modifier = Modifier
-            .padding(MaterialTheme.responsiveLayout.screenWidthPadding)
+            .padding(horizontal = MaterialTheme.responsiveLayout.screenWidthPadding)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

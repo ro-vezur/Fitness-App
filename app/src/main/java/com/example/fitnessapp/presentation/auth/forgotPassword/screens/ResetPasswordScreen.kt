@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.PasswordTextField
 import com.example.fitnessapp.presentation.auth.AuthUiComponents.InputFields.ValidationResult
 import com.example.fitnessapp.ui.theme.BASE_SCREEN_WIDTH_RATIO
-import com.example.fitnessapp.ui.theme.dimensions.LocalDimensions
+import com.example.fitnessapp.ui.theme.responsiveLayout
 
 @Composable
 fun ResetPasswordScreen(
@@ -30,7 +30,6 @@ fun ResetPasswordScreen(
     onConfirmPasswordInputChange: (String) -> Unit,
     resetPassword: () -> Unit,
 ) {
-    val localDimensions = LocalDimensions.current
 
     Column(
         modifier = Modifier
@@ -54,12 +53,12 @@ fun ResetPasswordScreen(
                 onNewPasswordInputChange(input)
             },
             validationResult = ValidationResult.Unknown,
-            elevation = localDimensions.elevation
+            elevation = MaterialTheme.responsiveLayout.elevation
         )
 
         PasswordTextField(
             modifier = Modifier
-                .padding(top = localDimensions.spacingExtraLarge),
+                .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge),
             text = confirmPasswordInput ,
             updateInput = { input ->
                 onConfirmPasswordInputChange(input)
@@ -67,7 +66,7 @@ fun ResetPasswordScreen(
             validationResult = ValidationResult.Unknown,
             header = "Confirm Password",
             placeholderText = "Confirm Your Password",
-            elevation = localDimensions.elevation
+            elevation = MaterialTheme.responsiveLayout.elevation
         )
 
         Spacer(Modifier.weight(0.5f))
@@ -82,15 +81,14 @@ fun ResetPasswordScreen(
 private fun ResetPasswordButton(
     onClick: () -> Unit
 ) {
-    val localDimensions = LocalDimensions.current
     val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         modifier = Modifier
-            .padding(top = localDimensions.spacingExtraLarge)
+            .padding(top = MaterialTheme.responsiveLayout.spacingExtraLarge)
             .fillMaxWidth()
-            .height(localDimensions.buttonHeight),
-        shape = localDimensions.cardShape,
+            .height(MaterialTheme.responsiveLayout.buttonHeight),
+        shape = MaterialTheme.responsiveLayout.cardShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),
