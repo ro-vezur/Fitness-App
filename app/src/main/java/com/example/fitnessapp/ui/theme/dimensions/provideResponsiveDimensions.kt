@@ -19,18 +19,28 @@ fun provideResponsiveDimensions(): Dimensions {
 }
 
 val PhoneDimensions = Dimensions(
-    spacingExtraSmall = 2.dp,
+    screenWidthPadding = 26.dp,
+
+    spacingExtraSmall = 3.dp,
     spacingSmall = 6.dp,
     spacingMedium = 12.dp,
-    spacingLarge = 16.dp,
-    spacingExtraLarge = 26.dp,
+    spacingLarge = 20.dp,
+    spacingExtraLarge = 30.dp,
 
-    iconSmall = 16.dp,
+    iconSmall = 20.dp,
     iconMedium = 24.dp,
     iconLarge = 30.dp,
 
+    imageSmall = 45.dp,
+    imageMedium = 65.dp,
+    imageLarge = 90.dp,
+
     buttonHeight = 60.dp,
     digitBoxSize = 65.dp,
+    dailyActivityCardHeight = 95.dp,
+    datePickerHeight = 50.dp,
+    exerciseCardHeight = 70.dp,
+
     cardShape = RoundedCornerShape(12.dp),
 
     outlineWidthSmall = 1.dp,
@@ -45,6 +55,8 @@ val PhoneDimensions = Dimensions(
 )
 
 val TabletDimensions = Dimensions(
+    screenWidthPadding = 45.dp,
+
     spacingExtraSmall = 4.dp,
     spacingSmall = 10.dp,
     spacingMedium = 16.dp,
@@ -55,8 +67,16 @@ val TabletDimensions = Dimensions(
     iconMedium = 32.dp,
     iconLarge = 38.dp,
 
+    imageSmall = 65.dp,
+    imageMedium = 85.dp,
+    imageLarge = 105.dp,
+
     buttonHeight = 80.dp,
     digitBoxSize = 100.dp,
+    dailyActivityCardHeight = 130.dp,
+    datePickerHeight = 65.dp,
+    exerciseCardHeight = 90.dp,
+
     cardShape = RoundedCornerShape(16.dp),
 
     outlineWidthSmall = 2.dp,
@@ -71,6 +91,8 @@ val TabletDimensions = Dimensions(
 )
 
 val ExpandedDimensions = Dimensions(
+    screenWidthPadding = 26.dp,
+
     spacingExtraSmall = 6.dp,
     spacingSmall = 12.dp,
     spacingMedium = 24.dp,
@@ -81,8 +103,16 @@ val ExpandedDimensions = Dimensions(
     iconMedium = 32.dp,
     iconLarge = 40.dp,
 
+    imageSmall = 45.dp,
+    imageMedium = 65.dp,
+    imageLarge = 85.dp,
+
     buttonHeight = 85.dp,
     digitBoxSize = 115.dp,
+    dailyActivityCardHeight = 95.dp,
+    datePickerHeight = 70.dp,
+    exerciseCardHeight = 70.dp,
+
     cardShape = RoundedCornerShape(20.dp),
 
     outlineWidthSmall = 4.dp,

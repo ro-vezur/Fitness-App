@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 
 data class Dimensions(
+    val screenWidthPadding: Dp,
+
     val spacingExtraSmall: Dp,
     val spacingSmall: Dp,
     val spacingMedium: Dp,
@@ -14,8 +16,16 @@ data class Dimensions(
     val iconMedium: Dp,
     val iconLarge: Dp,
 
+    val imageSmall: Dp,
+    val imageMedium: Dp,
+    val imageLarge: Dp,
+
     val buttonHeight: Dp,
     val digitBoxSize: Dp,
+    val dailyActivityCardHeight: Dp,
+    val datePickerHeight: Dp,
+    val exerciseCardHeight: Dp,
+
     val cardShape: Shape,
 
     val outlineWidthSmall: Dp,
