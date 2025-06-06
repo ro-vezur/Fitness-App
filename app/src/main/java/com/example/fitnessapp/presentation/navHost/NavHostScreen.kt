@@ -1,6 +1,11 @@
 package com.example.fitnessapp.presentation.navHost
 
 import android.util.Log
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,7 +40,7 @@ fun NavHostScreen(
     LaunchedEffect(Unit) {
         delay(3000)
 
-        navHostController.navigate(ScreenRoutes.MainScreensNavGraph)
+    //    navHostController.navigate(ScreenRoutes.MainScreensNavGraph)
     }
 
     Scaffold(
@@ -52,7 +57,17 @@ fun NavHostScreen(
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background),
             navController = navHostController,
-            startDestination = ScreenRoutes.SplashScreenRoute
+            startDestination = ScreenRoutes.MainScreensNavGraph,
+            enterTransition = {
+                fadeIn(
+                    animationSpec = tween(durationMillis = 200)
+                )
+            },
+            exitTransition = {
+                fadeOut(
+                    animationSpec = tween(durationMillis = 200)
+                )
+            }
         ) {
             composable<ScreenRoutes.SplashScreenRoute> {
                 showBottomNavigationBar = false
